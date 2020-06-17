@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { forbiddenNameValidator } from './shared/user-name.validator';
 import { passwordValidator } from './shared/password-validator';
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'my-app',
@@ -26,7 +27,7 @@ get alternateEmails(){
 addAlternateEmail(){
   this.alternateEmails.push(this._fb.control(''))
 }
-  constructor(private _fb : FormBuilder){}
+  constructor(private _fb : FormBuilder, private _registrationService: RegistrationService){}
 
 ngOnInit(){
 
@@ -63,6 +64,15 @@ ngOnInit(){
       }
       email.updateValueAndValidity();
     })
+}
+
+onSubmit(){
+console.log(this.registrationForm.value);
+this._registrationService.register(this.registrationForm.value)
+.subscribe(
+  response => console.log('Success!', response),
+  error => console.error('Error', error)
+)
 }
 
  

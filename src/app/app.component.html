@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h2>Registration Form</h2>
 
-  <form [formGroup]="registrationForm">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit">
     <div class="form-group">
       <label>Username</label>
       <input [class.is-invalid]="userName.invalid && userName.touched" type="text" formControlName="userName" class="form-control">
@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <label>Email</label>
-      <button type="button" class="btn btn-outline-dark btn-sm ml-2" (click)="addAlternateEmail()">Add email</button>
+      <button type="button" class="btn btn-outline-dark btn-sm ml-2" (click)="addAlternateEmail()">Add alternate email</button>
       <input [class.is-invalid]="email.invalid && email.touched"  type="text" formControlName="email" class="form-control">
       <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
       <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
@@ -62,7 +62,7 @@
     </div>
   </div>
 
-    <button class="btn btn-outline-success"  type="submit">Register</button>
+    <button [disabled]="!registrationForm.valid" class="btn btn-outline-success"  type="submit">Register</button>
     <button (click)="loadAPI()" class="btn btn-outline-warning ml-2" type="button">Load API Data</button>
    
 
