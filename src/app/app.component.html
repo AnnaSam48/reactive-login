@@ -4,7 +4,14 @@
   <form [formGroup]="registrationForm">
     <div class="form-group">
       <label>Username</label>
-      <input type="text"formControlName="userName" class="form-control">
+      <input [class.is-invalid]="userName.invalid && userName.touched" type="text" formControlName="userName" class="form-control">
+      
+    <div *ngIf="userName.invalid && userName.touched">
+      <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
+      <small *ngIf="userName.errors?.minlength" class="text-danger">Username mast be at least 3 charcters long</small>
+      <small *ngIf="userName.errors?.forbiddenName" class="text-danger">Username '{{userName.errors?.forbiddenName.value}}' is not allowed</small>
+
+    </div>
       <!-- <small class="text-danger" [class.d-none]="userName.valid || userName.untouched">Username is required</small> -->
       
     </div>
