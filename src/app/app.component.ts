@@ -14,7 +14,7 @@ get userName(){
 }
   constructor(private _fb : FormBuilder){}
   registrationForm = this._fb.group({
-    userName:['', [Validators.required, Validators.minLength(3), forbiddenNameValidator]],
+    userName:['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/password/),forbiddenNameValidator(/admin/), forbiddenNameValidator(/username/), forbiddenNameValidator(/userName/)]],
     password:[''],
     confirmPassword:[''],
     address: this._fb.group({
